@@ -4,7 +4,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
-// import authRoutes from "./routes/authRoutes.js";
+import authRoutes from "./routes/auth.js";
 // import userRoutes from "./routes/userRoutes.js";
 // import postRoutes from "./routes/postRoutes.js";
 // import commentRoutes from "./routes/commentRoutes.js";
@@ -41,7 +41,9 @@ app.use(express.json({ limit: "1mb" }));
 
 app.get("/api/health", (req,res) => {
     res.json({status:"ok", time: new Date().toISOString()});
-})
+});
+
+app.use("/api/auth", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
