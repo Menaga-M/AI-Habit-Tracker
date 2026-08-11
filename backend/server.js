@@ -36,7 +36,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*Any", cors(corsOptions));
+// Express 5 requires a named wildcard parameter for catch-all paths.
+// This handles CORS preflight requests for every API endpoint (including `/`).
+app.options("/{*path}", cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
 
 app.get("/api/health", (req,res) => {

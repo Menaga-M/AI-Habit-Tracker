@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const signToken = (id) => {
-    jwt.sign({id}, process.env.JWT_SECRET, {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN || "30d",
     });
 }
@@ -28,12 +28,12 @@ export const register = async (req, res) => {
             name,
             email: email.toLowerCase(),
             password,
-            avatar: name.chatAt(0).toUpperCase(),
+            avatar: name.charAt(0).toUpperCase(),
         });
         const token = signToken(user._id);
         res.status(201).json({user, token});
     }catch(err){
-        res.status(500).json({message: eerr.message});
+        res.status(500).json({message: err.message});
     }
 };
 
