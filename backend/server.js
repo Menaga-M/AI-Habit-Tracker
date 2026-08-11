@@ -5,9 +5,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.js";
-// import userRoutes from "./routes/userRoutes.js";
-// import postRoutes from "./routes/postRoutes.js";
-// import commentRoutes from "./routes/commentRoutes.js";
+import habitRoutes from "./routes/habits.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -46,6 +44,7 @@ app.get("/api/health", (req,res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/habits", habitRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
