@@ -1,4 +1,4 @@
-import { format, subDays, startOfWeek, endOfWeel, eachDayOfInterval } from "date-fns";
+import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval } from "date-fns";
 
 export const toDateKey = (date) => format(date, "yyyy-MM-dd");
 
