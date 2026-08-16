@@ -135,7 +135,7 @@ export const getAllStats = async( req, res) => {
         const days = lastNDays(30);
         const logs =  await HabitLog.find({
             userId: req.user._id,
-            completedDate: {$gte: days(0), $lte: days[days.length - 1]},
+            completedDate: {$gte: days[0], $lte: days[days.length - 1]},
         });
 
         const perHabit = habits.map((h) => {
