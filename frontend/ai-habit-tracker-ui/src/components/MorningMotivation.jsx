@@ -14,13 +14,21 @@ export default function MorningMotivation() {
     if (!user?.morningMotivation) return;
     const today = new Date().toISOString().slice(0, 10);
     const seen = localStorage.getItem("morning-seen");
-    if (seen === today) return;
+    const cachedContent = localStorage.getItem("morning-content");
+    if (seen === today && cachedContent) {
+      setContent(cachedContent);
+      return;
+    }
     setLoading(true);
     api
       .get("/ai/morning")
       .then((res) => {
         setContent(res.data.content);
         localStorage.setItem("morning-seen", today);
+        localStorage.setItem("morning-content", res.data.content);
+      })
+      .catch((error) => {
+        console.error("Unable to load morning motivation:", error);
       })
       .finally(() => setLoading(false));
   }, [user?.morningMotivation]);
