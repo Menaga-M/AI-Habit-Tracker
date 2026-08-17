@@ -5,11 +5,21 @@ const AuthContext = createContext(null);
 
 export const useAuth = () => useContext(AuthContext);
 
+const getStoredUser = () => {
+  const raw = localStorage.getItem("user");
+  if (!raw) return null;
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    // Discard data written by an older version of the app or corrupted storage.
+    localStorage.removeItem("user");
+    return null;
+  }
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const raw = localStorage.getItem("user");
-    return raw ? JSON.parse(raw) : null;
-  });
+  const [user, setUser] = useState(getStoredUser);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

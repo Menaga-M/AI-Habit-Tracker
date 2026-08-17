@@ -64,7 +64,7 @@ export const updatedProfile = async(req, res) => {
         const user =  await User.findById(req.user._id);
         if(name !== undefined){
             user.name = name;
-            user.avatar = name.chatAt(0).toUpperCase();
+            user.avatar = name.charAt(0).toUpperCase();
         }
         if(morningMotivation !== undefined)
             user.morningMotivation = morningMotivation;
