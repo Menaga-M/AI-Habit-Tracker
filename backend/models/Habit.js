@@ -34,6 +34,10 @@ const habitSchema = new mongoose.Schema(
         targetDays: { type: Number, default: 7, min: 1, max: 7},
         color: { type: String, default: "#6366f1"},
         icon: { type: String, default: "🎯"},
+        _streakProb: { type: Number, min: 0, max: 1 },
+        _pattern: { type: String, trim: true },
+        // Days ago on which the seeded streak is intentionally broken.
+        _brokeAt: { type: Number, min: 0 },
         isArchived: { type: Boolean, default: false },
         order: { type: Number, default: 0},
     },
