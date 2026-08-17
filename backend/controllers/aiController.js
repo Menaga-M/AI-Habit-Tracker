@@ -235,7 +235,18 @@ export const morningMotivation = async (req, res) => {
       })
       .join("\n");
 
-    const userMsg = `Today's habits and streaks:\n${ctx}\n\nDone today: ${done}/${total}. Write a personlized morning motivation now.`;
+    const today = todayKey();
+    const completedHabitIds = new Set(
+      logs
+        .filter((log) => log.completedDate === today)
+        .map((log) => String(log.habitId))
+    );
+    const done = habits.filter((habit) =>
+      completedHabitIds.has(String(habit._id))
+    ).length;
+    const total = habits.length;
+
+    const userMsg = `Today's habits and streaks:\n${ctx}\n\nDone today: ${done}/${total}. Write a personalised morning motivation now.`;
 
     const { content } = await chatCompletion({
       system: SYSTEM_PROMPTS.morning,
